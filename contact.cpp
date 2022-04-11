@@ -22,8 +22,8 @@ public:
     int size(char letter);
     void sizeT();
     void searchPeson(string name);
-    void deletePerson(string number);
-    void updatePerson(string name);
+    void deletePerson(string name);
+    void updatePerson(string name,string newTel,string newMail);
     int isExist(char f_letter,string tel);
 };
 // L'ALLOCATION DE MEMOIRE POUR LA LISTE CREEE
@@ -40,6 +40,7 @@ list* list::a_zero(){
     }
     return L;
 };
+// pour verifie si le contact exist ou pas
 int list::isExist(char f_letter, string tel){
     contact *head;
     int index = toupper(f_letter)-'A';
@@ -156,13 +157,34 @@ void list::sizeT(){
     cout << sizeTotal;
 }
 
-void list::updatePerson(string tel){
-    
+// modifie le numero et l'email en se basent sur le nom de la personne
+void list::updatePerson(string name,string newTel,string newMail){
+    int index = toupper(name.at(0)) - 'A';
+    contact *head = this->letters[index];
+    while (head!=NULL)
+    {
+        if(head->name == name){
+            break;
+        }
+        else{head=head->next;}
+    }
+    head->tel = newTel;
+    head->mail = newMail;
 };
 
-void list::deletePerson(string tel){
-
-
+// supprimer un person par leur nom
+void list::deletePerson(string name){
+    int index = toupper(name.at(0)) - 'A';
+    contact *head = this->letters[index];
+    while (head!=NULL)
+    {
+        if(head->name == name){
+            head->prev->next = head->next;
+            head->next->prev = head->prev;
+            delete head;
+        }
+        else{head = head->next;}
+    }
 }
 
 int main(){
@@ -171,4 +193,9 @@ int main(){
     // size total de la list + size;
     L1 = L1->a_zero();
     L1->insertContact("Ahmed","0651571989","ahmed@mail.com");
+    L1->insertContact("Anas","0651531989","anas@mail.com");
+    L1->insertContact("Ali","0651522989","ali@mail.com");
+    L1->updatePerson("Ahmed","0616922230","ahmed@gmail.com");
+    L1->deletePerson("Anas");
+    L1->showList('A');
 }
