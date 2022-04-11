@@ -17,14 +17,14 @@ class list{
 public:
     contact *letters[26];
     list* a_zero();
-    void insertContact(string name,string tel,string mail);
-    void showList(char letter);
-    int size(char letter);
-    void sizeT();
-    void searchPeson(string name);
-    void deletePerson(string name);
-    void updatePerson(string name,string newTel,string newMail);
-    int isExist(char f_letter,string tel);
+    void insertContact(string name,string tel,string mail); // insertion d'un contact
+    void showList(char letter); // affichage de la liste d'un lettre
+    int size(char letter); // size de chaque liste qui correspent a un lettre 
+    void sizeT(); // size total de la liste 
+    void searchPeson(string name); // recherche d'un person par leur nom
+    void deletePerson(string name);// suppression d'un person par leur nom
+    void updatePerson(string name,string newTel,string newMail); // modification des informations d'un person
+    int isExist(char f_letter,string tel); // verification si un contact exist au pas il return 1 si il exist et 0 sinon
 };
 // L'ALLOCATION DE MEMOIRE POUR LA LISTE CREEE
 // LA CREATION D'UNE LISTE CHAINNES POUR CHAQUE LETTRE
@@ -179,9 +179,21 @@ void list::deletePerson(string name){
     while (head!=NULL)
     {
         if(head->name == name){
+            
+            if(head->next==NULL){
+                // cas de la dernier element 
+                head->prev->next = NULL;
+                delete head;
+                break;
+            }else{
+                // cas au milieux 
             head->prev->next = head->next;
             head->next->prev = head->prev;
             delete head;
+            break;
+            }
+            //pour le cas au premier element en a deja un element qui fix
+            // apres l'initialisation
         }
         else{head = head->next;}
     }
@@ -190,12 +202,12 @@ void list::deletePerson(string name){
 int main(){
 
     list *L1;
-    // size total de la list + size;
     L1 = L1->a_zero();
     L1->insertContact("Ahmed","0651571989","ahmed@mail.com");
     L1->insertContact("Anas","0651531989","anas@mail.com");
     L1->insertContact("Ali","0651522989","ali@mail.com");
     L1->updatePerson("Ahmed","0616922230","ahmed@gmail.com");
-    L1->deletePerson("Anas");
+    L1->deletePerson("Ali");
+    L1->insertContact("Abdelah","0642335692","abdelah@outlook.com");
     L1->showList('A');
 }
