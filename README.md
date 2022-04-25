@@ -1,5 +1,5 @@
 # Contacts-Management-using-linked-list
-by this using this application you can do this operations 
+By this using this application you can do this operations 
 <p>INESRT A NEW  CONTACT<p>
 <p>UPDATE AN EXIST CONTACT<p>
 <p>DELETE A CONTACT<p>
